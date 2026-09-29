@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>模拟注册页面</title>
+</head>
+<body>
+  <h2>用户注册</h2>
+  <form id="registerForm">
+    <div>
+      <label>用户名：</label>
+      <input type="text" id="username" name="username">
+    </div>
+    <div>
+      <label>密码：</label>
+      <input type="password" id="password" name="password">
+    </div>
+    <div>
+      <label>确认密码：</label>
+      <input type="password" id="confirmPassword" name="confirmPassword">
+    </div>
+    <div>
+      <label>验证码：</label>
+      <!-- 模拟测试环境的常见做法：验证码是固定值，写死在页面上方便识别 -->
+      <span id="captchaText" style="font-weight:bold; letter-spacing:3px; background:#eee; padding:2px 8px;">8823</span>
+      <input type="text" id="captchaInput" name="captchaInput">
+    </div>
+    <div>
+      <button type="button" id="submitBtn">注册</button>
+    </div>
+  </form>
+  <p id="resultMsg"></p>
+
+  <script>
+    document.getElementById("submitBtn").addEventListener("click", function () {
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+      const confirmPassword = document.getElementById("confirmPassword").value;
+      const captchaText = document.getElementById("captchaText").textContent;
+      const captchaInput = document.getElementById("captchaInput").value;
+      const resultMsg = document.getElementById("resultMsg");
+
+      if (!username || !password) {
+        resultMsg.textContent = "用户名或密码不能为空";
+        return;
+      }
+      if (password !== confirmPassword) {
+        resultMsg.textContent = "两次密码输入不一致";
+        return;
+      }
+      if (captchaInput !== captchaText) {
+        resultMsg.textContent = "验证码错误";
+        return;
+      }
+      resultMsg.textContent = "注册成功";
+    });
+  </script>
+</body>
+</html>

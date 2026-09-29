@@ -1,0 +1,42 @@
+# 请假列表日期校验：步骤相同（填From→填To→读错误），只有数据不同，适合数据驱动
+# 日期必须加引号：不加的话YAML会把 2026-02-01 自动转成日期对象，2026-32-01 这种非法日期直接解析报错
+# 用到的方法：边界值（From=To、To比From早一天）+ 等价类（格式非法的几类）
+# 注意OrangeHRM的日期格式是 yyyy-dd-mm
+date_error_cases:
+  - tc: TC_LEAVE_007
+    case_name: To早于From一天
+    priority: P2
+    from_date: "2026-02-01"
+    to_date: "2026-01-01"
+    expected: To date should be after from date
+  - tc: TC_LEAVE_009
+    case_name: From格式是字母
+    priority: P2
+    from_date: "abc"
+    to_date: "2026-31-12"
+    expected: Should be a valid date in yyyy-dd-mm format
+  - tc: TC_LEAVE_010
+    case_name: 日期超出范围（32日）
+    priority: P2
+    from_date: "2026-32-01"
+    to_date: "2026-31-12"
+    expected: Should be a valid date in yyyy-dd-mm format
+  - tc: TC_LEAVE_011
+    case_name: To格式是字母
+    priority: P2
+    from_date: "2026-01-01"
+    to_date: "abc"
+    expected: Should be a valid date in yyyy-dd-mm format
+
+# 假期额度校验：等价类（非数字）+ 边界值（小数位数2位是上限，3位超限）
+entitlement_error_cases:
+  - tc: TC_LEAVE_014
+    case_name: 额度填非数字
+    priority: P2
+    value: abc
+    expected: Should be a number with upto 2 decimal places
+  - tc: TC_LEAVE_015
+    case_name: 额度小数超过2位
+    priority: P2
+    value: "1.555"
+    expected: Should be a number with upto 2 decimal places

@@ -1,0 +1,14 @@
+# Python缓存
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# 每次运行生成的报告和截图，不进版本库
+reports/
+report/
+log/
+screenshots/
+
+# 编辑器
+.vscode/
+.idea/

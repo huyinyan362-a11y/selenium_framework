@@ -1,0 +1,63 @@
+# 登录失败场景：步骤都一样（输账号→输密码→点登录→读提示），只有数据和预期不同，适合数据驱动
+# 按"读哪个提示"分成两组，测试方法里就不用写 if 分支（出现按数据走分支的if，说明不该硬塞进同一个方法）
+# tc = 用例文档里的编号；priority = 这条数据自己的优先级（同一个方法里的数据优先级可以不同）
+
+# 页面顶部红框提示
+login_error_cases:
+  - tc: TC_LOGIN_002
+    case_name: 密码错误
+    priority: P0
+    username: Admin
+    password: wrong123
+    expected: Invalid credentials
+  - tc: TC_LOGIN_003
+    case_name: 用户名错误
+    priority: P1
+    username: WrongUser
+    password: admin123
+    expected: Invalid credentials
+  - tc: TC_LOGIN_004
+    case_name: 用户名密码都错误
+    priority: P1
+    username: WrongUser
+    password: wrong123
+    expected: Invalid credentials
+  - tc: TC_LOGIN_005
+    case_name: 密码大小写错误
+    priority: P1
+    username: Admin
+    password: ADMIN123
+    expected: Invalid credentials
+  - tc: TC_LOGIN_011
+    case_name: 用户名输入SQL注入语句
+    priority: P2
+    username: "' OR '1'='1"
+    password: "123"
+    expected: Invalid credentials
+  - tc: TC_LOGIN_012
+    case_name: 用户名输入超长字符
+    priority: P2
+    username: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    password: admin123
+    expected: Invalid credentials
+
+# 输入框下方必填提示
+login_required_cases:
+  - tc: TC_LOGIN_008
+    case_name: 用户名为空
+    priority: P2
+    username: ""
+    password: admin123
+    expected: Required
+  - tc: TC_LOGIN_009
+    case_name: 密码为空
+    priority: P2
+    username: Admin
+    password: ""
+    expected: Required
+  - tc: TC_LOGIN_010
+    case_name: 用户名密码都为空
+    priority: P2
+    username: ""
+    password: ""
+    expected: Required

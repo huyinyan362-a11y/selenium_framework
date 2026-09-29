@@ -1,0 +1,22 @@
+# 候选人邮箱格式校验：等价类划分——无效类每类取一个代表
+invalid_email_cases:
+  - tc: TC_REC_008
+    case_name: 邮箱没有@
+    priority: P2
+    email: abc.com
+  - tc: TC_REC_009
+    case_name: 邮箱只有@没有域名
+    priority: P2
+    email: abc@
+  - tc: TC_REC_010
+    case_name: 邮箱没有用户名部分
+    priority: P2
+    email: "@test.com"
+  - tc: TC_REC_011
+    case_name: 邮箱域名没有点
+    priority: P2
+    email: abc@test
+  - tc: TC_REC_012
+    case_name: 邮箱含空格
+    priority: P2
+    email: ab c@test.com
